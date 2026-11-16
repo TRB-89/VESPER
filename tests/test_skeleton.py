@@ -1,0 +1,11 @@
+def test_skeleton_environment():
+    import pandas
+    import pyarrow
+    import duckdb
+    import requests
+    import yfinance
+    assert pandas.__version__
+    assert pyarrow.__version__
+    assert duckdb.__version__
+    assert requests.__version__
+    assert yfinance.__version__
