@@ -44,6 +44,8 @@ Following technical probing, integrity validation across 23,627 records, and rig
 
 ### Provisional Provider Allocation & Roles
 1. **Primary Ground Truth Provider**: **National Stock Exchange of India (NSE) Official Archives**
+   - **Technical Status**: **TECHNICALLY APPROVED PRIMARY PROVIDER**
+   - **Legal / Ingestion Status**: **Access authorization & automated bulk ingestion permission: PENDING FORMAL NSE RESEARCH APPROVAL** (pursuant to SEBI Circular Dec 20, 2024 and NSE Research Data Sharing Policy dated 28 July 2025; see [docs/nse_research_data_request.md](file:///c:/Users/TRB/Downloads/VESPER/docs/nse_research_data_request.md)).
    - **Role**: Authoritative single source of truth for End-of-Day (EOD) cash equities, benchmark indices, and derivatives.
    - **Data Streams**: Daily UDiFF Bhavcopy (`BhavCopy_NSE_CM_...`), legacy bhavcopy (`cm...bhav.csv.zip`), index daily files (`ind_close_all_...`), and F&O bhavcopy (`BhavCopy_NSE_FO_...`).
    - **Rationale**: True point-in-time unadjusted settlement prices, deliverable trade quantities, real trade counts, and official open interest. Zero corporate action distortion.
@@ -216,8 +218,8 @@ Phase 00 proved that **Implied Volatility (IV) is completely absent from all dai
 | **6** | **Cross-provider discrepancies documented** | **PASS** | Evaluated all 192 matched NSE vs Yahoo pairs. Proved 0.0000% difference on indices and unsplit equities. Root cause for the 65 discrepancies proved to be Yahoo's retroactive split adjustments. |
 | **7** | **Missing and duplicate records identified** | **PASS** | Validator suite ran on 23,627 records: 0 duplicate `(symbol, session_date)` pairs. Reconciled all 9 missing index sessions against NSE archive files and trading holiday calendars. |
 | **8** | **Derivatives data availability assessed** | **PASS** | Proved Open Interest (`OPEN_INT`, `OpnIntrst`) is present in daily F&O bhavcopies. Proved Implied Volatility (IV) is completely absent, defining future BSM engine requirements. |
-| **9** | **Primary provider selected** | **HUMAN REVIEW REQUIRED** | Recommended Architecture: **NSE Official Bhavcopy (UDiFF & Legacy Archives)** as Primary Ground Truth, **Yahoo Finance** as Secondary Cross-Validation, **RBI DBIE** for macro/discount rates, and **Zerodha Kite** for future live execution. Final formal sign-off reserved for human reviewer. |
-| **10** | **Provenance report completed** | **PASS** | Comprehensive provenance audit report (`docs/phase00_provenance_report.md`), analysis results (`docs/phase00_analysis_results.md`), licensing matrix (`docs/phase00_licensing_matrix.md`), and provider decision (`docs/phase00_provider_decision.md`) completed. |
+| **9** | **Primary provider selected** | **HUMAN REVIEW REQUIRED** | **NSE TECHNICALLY APPROVED AS PRIMARY PROVIDER** (UDiFF & Legacy Archives for EOD & Derivatives), with Yahoo Finance as secondary cross-validation, and RBI DBIE for macro/discount rates. Formal research data request prepared in `docs/nse_research_data_request.md` pursuant to NSE Policy (28 July 2025). Automated ingestion permission remains **PENDING** formal exchange approval. |
+| **10** | **Provenance report completed** | **PASS** | Comprehensive provenance audit report (`docs/phase00_provenance_report.md`), analysis results (`docs/phase00_analysis_results.md`), licensing matrix (`docs/phase00_licensing_matrix.md`), provider decision (`docs/phase00_provider_decision.md`), and formal research data request (`docs/nse_research_data_request.md`) completed. |
 
 ---
 
@@ -225,10 +227,11 @@ Phase 00 proved that **Implied Volatility (IV) is completely absent from all dai
 
 ### Gate Status
 - **Technical Implementation**: **PASSED** (100% of functional requirements met; 30 unit tests passing; zero data leakage into Git).
-- **Governance & Legal Assessment**: **HUMAN REVIEW REQUIRED** on Items 2 and 9. All evidence, terms URLs, quoted clauses, cost structures, and architectural justifications are fully documented for human decision.
+- **Primary Provider Selection**: **NSE TECHNICALLY APPROVED**; legal access authorization and automated bulk ingestion permission remain **PENDING formal exchange research approval**.
+- **Governance & Legal Assessment**: **HUMAN REVIEW REQUIRED** on Items 2 and 9. All evidence, terms URLs, quoted clauses, cost structures, SEBI/NSE basket mappings, and architectural justifications are fully documented for human decision.
 
 ### Eligibility for Phase 00 Closure
 **Phase 00 is technically complete and fully eligible for final sign-off.**
-Upon human concurrence with the provisional architecture and licensing recommendations for Items 2 and 9:
+Upon human concurrence with the provisional architecture, licensing recommendations, and research data request:
 - **Phase 00 will be officially sealed.**
-- **Phase 01 (Data Ingestion & Storage Pipeline) may then be unlocked.**
+- **Phase 01 (Data Ingestion & Storage Pipeline) may then be unlocked upon formal NSE research approval.**
